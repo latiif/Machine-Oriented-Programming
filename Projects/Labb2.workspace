@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="Labb2" Database="" Version="10.0.0">
+  <Project Name="Upp21" Path="Upp21/Upp21.project" Active="No"/>
+  <Project Name="Upp22" Path="Upp22/Upp22.project" Active="No"/>
+  <Project Name="Upp23" Path="Upp23/Upp23.project" Active="No"/>
+  <Project Name="Labb3" Path="Labb3/Labb3.project" Active="Yes"/>
+  <Project Name="Exceptinos" Path="Exceptinos/Exceptinos.project" Active="No"/>
+  <Project Name="labb41" Path="labb41/labb41.project" Active="No"/>
+  <Project Name="labb44" Path="labb44/labb44.project" Active="No"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="Upp21" ConfigName="Debug"/>
+      <Project Name="Upp22" ConfigName="Debug"/>
+      <Project Name="Upp23" ConfigName="Debug"/>
+      <Project Name="Labb3" ConfigName="Debug"/>
+      <Project Name="Upp41" ConfigName="Debug"/>
+      <Project Name="labb41" ConfigName="Debug"/>
+      <Project Name="labb44" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="Upp21" ConfigName="Release"/>
+      <Project Name="Upp22" ConfigName="Release"/>
+      <Project Name="Upp23" ConfigName="Release"/>
+      <Project Name="Labb3" ConfigName="Release"/>
+      <Project Name="Upp41" ConfigName="Release"/>
+      <Project Name="labb41" ConfigName="Release"/>
+      <Project Name="labb44" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>

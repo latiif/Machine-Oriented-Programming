@@ -1,0 +1,1 @@
+./Debug/startup.c.o ./Debug/display.c.o ./Debug/line.c.o ./Debug/ball.c.o ./Debug/input.c.o   
