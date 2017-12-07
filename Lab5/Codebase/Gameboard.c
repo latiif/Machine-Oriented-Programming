@@ -1,0 +1,124 @@
+//
+// Created by latiif on 12/7/17.
+//
+
+#include "Gameboard.h"
+
+
+const long values[] = {
+		0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048
+};
+
+
+void do_gravity(int d)
+{
+#define GRAVITATE_DIRECTION(_v1, _v2, _xs, _xc, _xi, _ys, _yc, _yi, _x, _y) \
+    do {                                                                    \
+        int break_cond = 0;                                                 \
+        while (!break_cond) {                                               \
+            break_cond = 1;                                                 \
+            for (int (_v1) = _xs; _v1 _xc; (_v1) += _xi) {                      \
+                for (int _v2 = _ys; _v2 _yc; _v2 += _yi) {                  \
+                    if (!game.grid[x][y] && game.grid[x + _x][y + _y]) {    \
+                        game.grid[x][y] = game.grid[x + _x][y + _y];        \
+                        game.grid[x + _x][y + _y] = break_cond = 0;         \
+                        game.have_moved = 1;                                \
+                    }                                                       \
+                }                                                           \
+            }                                                               \
+        }                                                                   \
+    } while (0);
+
+	switch (d) {
+		case D_LEFT:
+			GRAVITATE_DIRECTION(x, y, 0, < 3, 1, 0, < 4, 1, 1, 0);
+			break;
+		case D_RIGHT:
+			GRAVITATE_DIRECTION(x, y, 3, > 0, -1, 0, < 4, 1, -1, 0);
+			break;
+		case D_DOWN:
+			GRAVITATE_DIRECTION(y, x, 3, > 0, -1, 0, < 4, 1, 0, -1);
+			break;
+		case D_UP:
+			GRAVITATE_DIRECTION(y, x, 0, < 3, 1, 0, < 4, 1, 0, 1);
+			break;
+	}
+
+#undef GRAVITATE_DIRECTION
+}
+
+void do_merge(int d)
+{
+/* These macros look pretty scary, but mainly demonstrate some space saving */
+#define MERGE_DIRECTION(_v1, _v2, _xs, _xc, _xi, _ys, _yc, _yi, _x, _y)     \
+    do {                                                                    \
+        for (int _v1 = _xs; _v1 _xc; _v1 += _xi) {                          \
+            for (int _v2 = _ys; _v2 _yc; _v2 += _yi) {                      \
+                if (game.grid[x][y] && (game.grid[x][y] ==                  \
+                                    game.grid[x + _x][y + _y])) {           \
+                    game.grid[x][y] += (game.have_moved = 1);               \
+                    game.grid[x + _x][y + _y] = (0 * game.blocks_in_play--);\
+                    game.score_last_move += values[game.grid[x][y]];        \
+                    game.total_score += values[game.grid[x][y]];            \
+                }                                                           \
+            }                                                               \
+        }                                                                   \
+    } while (0)
+
+	game.score_last_move = 0;
+
+	switch (d) {
+		case D_LEFT:
+			MERGE_DIRECTION(x, y, 0, < 3, 1, 0, < 4, 1, 1, 0);
+			break;
+		case D_RIGHT:
+			MERGE_DIRECTION(x, y, 3, > 0, -1, 0, < 4, 1, -1, 0);
+			break;
+		case D_DOWN:
+			MERGE_DIRECTION(y, x, 3, > 0, -1, 0, < 4, 1, 0, -1);
+			break;
+		case D_UP:
+			MERGE_DIRECTION(y, x, 0, < 3, 1, 0, < 4, 1, 0, 1);
+			break;
+	}
+
+#undef MERGE_DIRECTION
+}
+
+
+int do_check_end_condition(void)
+{
+	int ret = -1;
+	for (int x = 0; x < 4; ++x) {
+		for (int y = 0; y < 4; ++y) {
+			if (values[game.grid[x][y]] == 2048)
+				return 1;
+			if (!game.grid[x][y] ||
+			    ((x + 1 < 4) && (game.grid[x][y] == game.grid[x + 1][y])) ||
+			    ((y + 1 < 4) && (game.grid[x][y] == game.grid[x][y + 1])))
+				ret = 0;
+		}
+	}
+	return ret;
+}
+
+
+int do_tick(int d)
+{
+	game.have_moved = 0;
+	do_gravity(d);
+	do_merge(d);
+	do_gravity(d);
+	return game.have_moved;
+}
+
+void init_gameboard(void)
+{
+	for (int i=0;i<4;i++)
+		for (int j=0;j<4;j++)
+			game.grid[i][j]=0;
+
+
+	for (int i=0;i<4;i++)
+			game.grid[i][0]=1;
+}
