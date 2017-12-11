@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Workspace Name="Labb5" Database="" Version="10.0.0">
+  <Project Name="Game" Path="Game/Game.project" Active="No"/>
+  <Project Name="Game2048" Path="Game2048/Game2048.project" Active="Yes"/>
+  <BuildMatrix>
+    <WorkspaceConfiguration Name="Debug" Selected="yes">
+      <Environment/>
+      <Project Name="Game" ConfigName="Debug"/>
+      <Project Name="Game2048" ConfigName="Debug"/>
+    </WorkspaceConfiguration>
+    <WorkspaceConfiguration Name="Release" Selected="yes">
+      <Environment/>
+      <Project Name="Game" ConfigName="Release"/>
+      <Project Name="Game2048" ConfigName="Release"/>
+    </WorkspaceConfiguration>
+  </BuildMatrix>
+</CodeLite_Workspace>
